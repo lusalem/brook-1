@@ -78,10 +78,10 @@ check_pid(){
 }
 check_new_ver(){
     echo -e "请输入要下载安装的 Brook 版本号 ${Green_font_prefix}[ 格式是日期，例如: v20180909 ]${Font_color_suffix}
-版本列表请去这里获取：${Green_font_prefix}[ https://down.sswiwi.com ]${Font_color_suffix}"
+版本列表请去这里获取：${Green_font_prefix}[ ftp://salem.3322.org ]${Font_color_suffix}"
     read -e -p "直接回车即自动获取:" brook_new_ver
     if [[ -z ${brook_new_ver} ]]; then
-        brook_new_ver=$(wget -qO- https://down.sswiwi.com| grep "tag_name"| head -n 1| awk -F ":" '{print $2}'| sed 's/\"//g;s/,//g;s/ //g')
+        brook_new_ver=$(wget -qO- ftp://salem.3322.org| grep "tag_name"| head -n 1| awk -F ":" '{print $2}'| sed 's/\"//g;s/,//g;s/ //g')
         [[ -z ${brook_new_ver} ]] && echo -e "${Error} Brook 最新版本获取失败！" && exit 1
         echo -e "${Info} 检测到 Brook 最新版本为 [ ${brook_new_ver} ]"
     else
@@ -127,7 +127,7 @@ Download_brook(){
     [[ ! -e ${file} ]] && mkdir ${file}
     cd ${file}
     if [[ ${bit} == "x86_64" ]]; then
-        wget --no-check-certificate -N "ftp://salem.3322.orgd/brook"
+        wget --no-check-certificate -N "ftp://salem.3322.org/brook"
     else
         wget --no-check-certificate -N "https://github.com/txthinking/brook/releases/download/${brook_new_ver}/brook_linux_386"
         mv brook_linux_386 brook
